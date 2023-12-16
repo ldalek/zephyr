@@ -154,3 +154,8 @@ config MIPI_DPHY_CLK_SRC_FRO
 endchoice
 
 endif # SOC_SERIES_IMX_RT5XX
+
+config SHARE_I2S
+	bool "Share I2S"
+	help
+	  Enable share I2S
