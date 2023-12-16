@@ -163,6 +163,11 @@ static int i2s_mcux_flexcomm_cfg_convert(uint32_t base_frequency,
 		return -EINVAL;
 	}
 
+#if CONFIG_SHARE_I2S
+	fsl_cfg->pdmData = true;
+	fsl_cfg->divider = 16;
+#endif
+
 	return 0;
 }
 
@@ -255,6 +260,9 @@ static int i2s_mcux_configure(const struct device *dev, enum i2s_dir dir,
 		I2S_RxInit(cfg->base, &fsl_cfg);
 	} else {
 		I2S_TxInit(cfg->base, &fsl_cfg);
+#if CONFIG_SHARE_I2S
+		I2S_Enable(cfg->base);
+#endif
 	}
 
 	if ((i2s_cfg->channels > 2) &&
